@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      margin: 8px; 
+      background-color: #f0f2f5; 
+      font-size: 18px; /* Larger base font */
+      line-height: 1.5;
+    }
+    .exercise-block { 
+      border: 2px solid #e1e5e9; 
+      padding: 20px; 
+      margin-bottom: 20px; 
+      border-radius: 16px; 
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .sets-row { 
+      display: flex; 
+      gap: 12px; 
+      margin-bottom: 16px; 
+      align-items: center;
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+    }
+    .set-number {
+      font-weight: 700;
+      color: #495057;
+      min-width: 60px;
+      font-size: 16px;
+    }
+    button { 
+      font-size: 18px; 
+      font-weight: 600;
+      padding: 16px 20px; 
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      min-height: 50px;
+      margin: 6px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn-primary { 
+      background: #007bff; 
+      color: white; 
+    }
+    .btn-primary:hover { 
+      background: #0056b3; 
+      transform: translateY(-1px);
+    }
+    .btn-danger { 
+      background: #dc3545; 
+      color: white; 
+    }
+    .btn-danger:hover { 
+      background: #c82333; 
+      transform: translateY(-1px);
+    }
+    .btn-success { 
+      background: #28a745; 
+      color: white; 
+      font-size: 20px;
+      padding: 18px 24px;
+    }
+    .btn-success:hover { 
+      background: #1e7e34; 
+      transform: translateY(-1px);
+    }
+    
+    select, input { 
+      padding: 16px; 
+      border: 2px solid #ced4da; 
+      border-radius: 8px; 
+      font-size: 18px;
+      margin-bottom: 12px;
+      min-height: 50px;
+      box-sizing: border-box;
+      background: white;
+    }
+    
+    select:focus, input:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+    }
+    
+    .history { 
+      font-size: 16px; 
+      color: #212529; 
+      margin: 16px 0; 
+      padding: 16px;
+      background: #e8f4f8;
+      border-radius: 12px;
+      border: 1px solid #bee5eb;
+      display: none;
+    }
+    .history.show { display: block; }
+    
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 16px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .history-table th,
+    .history-table td {
+      padding: 12px 8px;
+      text-align: left;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .history-table th {
+      background-color: #f8f9fa;
+      font-weight: 700;
+      font-size: 15px;
+      color: #495057;
+    }
+    .history-table tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .exercise-selectors {
+      margin-bottom: 20px;
+    }
+    
+    .exercise-selectors > div {
+      margin-bottom: 16px;
+    }
+    
+    .exercise-selectors label {
+      display: block;
+      font-weight: 700;
+      font-size: 16px;
+      color: #495057;
+      margin-bottom: 8px;
+    }
+    
+    h2 {
+      text-align: center;
+      margin: 16px 0 24px 0;
+      font-size: 28px;
+      color: #212529;
+      font-weight: 700;
+    }
+    
+    hr {
+      border: none;
+      height: 2px;
+      background: #e9ecef;
+      margin: 20px 0;
+      border-radius: 1px;
+    }
+    
+    /* Mobile-specific optimizations */
+    @media (max-width: 768px) {
+      body { 
+        font-size: 18px;
+        margin: 6px;
+        background-color: #f8f9fa;
+      }
+      
+      .exercise-block {
+        padding: 16px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+      }
+      
+      .exercise-selectors {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .sets-row { 
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        align-items: stretch;
+      }
+      
+      .set-number {
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: #007bff;
+        margin-bottom: 8px;
+      }
+      
+      .sets-row input {
+        width: 100%;
+        font-size: 20px;
+        padding: 18px;
+        text-align: center;
+        font-weight: 600;
+      }
+      
+      .sets-row button {
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 8px;
+      }
+      
+      button { 
+        width: 100%; 
+        margin-bottom: 12px;
+        font-size: 18px;
+        padding: 18px;
+        font-weight: 700;
+      }
+      
+      select {
+        font-size: 18px;
+        padding: 18px;
+      }
+      
+      .history-table {
+        font-size: 15px;
+      }
+      
+      .history-table th,
+      .history-table td {
+        padding: 10px 6px;
+      }
+      
+      .history strong {
+        font-size: 17px;
+        display: block;
+        margin-bottom: 12px;
+        color: #007bff;
+      }
+    }
+    
+    /* Extra small screens */
+    @media (max-width: 480px) {
+      body {
+        font-size: 16px;
+        margin: 4px;
+      }
+      
+      .exercise-block {
+        padding: 12px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      .history-table th,
+      .history-table td {
+        padding: 8px 4px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>💪 Workout Logger</h2>
+  
+  <form id="workoutForm">
+    <div id="exercises"></div>
+    <button type="button" class="btn-primary" onclick="addExerciseBlock()">+ Add Exercise</button>
+    <br><br>
+    <button type="submit" class="btn-success">🏁 Complete Workout</button>
+  </form>
+  <script>
+    let exerciseList = [];
+    let exerciseTypes = [];
+
+    function fetchExerciseList() {
+      google.script.run.withSuccessHandler(function(list) {
+        exerciseList = list;
+        // Extract unique exercise types (assuming format like "Back - Barbell Rows")
+        exerciseTypes = [...new Set(list.map(ex => {
+          const parts = ex.split(' - ');
+          return parts.length > 1 ? parts[0] : 'Other';
+        }))].sort();
+        
+        addExerciseBlock(); // Add first block
+      }).getExerciseList();
+    }
+
+    function addExerciseBlock() {
+      const exercisesDiv = document.getElementById('exercises');
+      const block = document.createElement('div');
+      block.className = 'exercise-block';
+      block.innerHTML = `
+        <div class="exercise-selectors">
+          <div>
+            <label>Exercise Type</label>
+            <select class="type-select" onchange="filterExercisesForBlock(this)">
+              <option value="">Select Type</option>
+              ${exerciseTypes.map(type => `<option value="${type}">${type}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label>Exercise</label>
+            <select class="exercise-select" onchange="showHistory(this)" disabled>
+              <option value="">First select a type</option>
+            </select>
+          </div>
+        </div>
+        <div class="history"></div>
+        <div class="sets-list"></div>
+        <button type="button" class="btn-primary" onclick="addSetRow(this)">+ Add Set</button>
+        <button type="button" class="btn-danger" onclick="removeExerciseBlock(this)">Remove Exercise</button>
+        <hr>
+      `;
+      exercisesDiv.appendChild(block);
+      addSetRow(block.querySelector('button[onclick^="addSetRow"]'));
+    }
+
+    function filterExercisesForBlock(typeSelect) {
+      const selectedType = typeSelect.value;
+      const exerciseSelect = typeSelect.parentElement.parentElement.querySelector('.exercise-select');
+      
+      if (!selectedType) {
+        exerciseSelect.innerHTML = '<option value="">First select a type above</option>';
+        exerciseSelect.disabled = true;
+        return;
+      }
+      
+      // Filter exercises for this specific type
+      const filteredExercises = exerciseList.filter(ex => ex.startsWith(selectedType + ' - '));
+      
+      exerciseSelect.innerHTML = '<option value="">Select Exercise</option>' +
+        filteredExercises.map(e => `<option value="${e}">${e}</option>`).join('');
+      exerciseSelect.disabled = false;
+      
+      // Clear history when type changes
+      const historyDiv = exerciseSelect.parentElement.querySelector('.history');
+      historyDiv.classList.remove('show');
+    }
+
+    function removeExerciseBlock(btn) {
+      btn.parentElement.remove();
+    }
+
+    function addSetRow(btn) {
+      const setsList = btn.parentElement.querySelector('.sets-list');
+      const setNumber = setsList.children.length + 1;
+      const row = document.createElement('div');
+      row.className = 'sets-row';
+      row.innerHTML = `
+        <div class="set-number">Set ${setNumber}:</div>
+        <div style="display: flex; flex-direction: column; flex: 1;">
+          <label style="font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 4px;">Reps</label>
+          <input type="number" placeholder="Reps" min="1" required style="width: 100%;">
+        </div>
+        <div style="display: flex; flex-direction: column; flex: 1;">
+          <label style="font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 4px;">Weight (lbs)</label>
+          <input type="number" placeholder="Weight" min="0" step="0.5" required style="width: 100%;">
+        </div>
+        <div style="display: flex; flex-direction: column; flex: 0.8;">
+          <label style="font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 4px;">RIR (1-5)</label>
+          <select required style="width: 100%; padding: 18px; font-size: 18px; text-align: center;">
+            <option value="">-</option>
+            <option value="1">1 (Max effort)</option>
+            <option value="2">2 (Very hard)</option>
+            <option value="3">3 (Hard)</option>
+            <option value="4">4 (Moderate)</option>
+            <option value="5">5 (Easy)</option>
+          </select>
+        </div>
+        <button type="button" class="btn-danger" onclick="removeSetRow(this)">✕</button>
+      `;
+      setsList.appendChild(row);
+      updateSetNumbers(setsList);
+    }
+
+    function removeSetRow(btn) {
+      const setsList = btn.parentElement.parentElement;
+      btn.parentElement.remove();
+      updateSetNumbers(setsList);
+    }
+
+    function updateSetNumbers(setsList) {
+      Array.from(setsList.children).forEach((row, index) => {
+        row.querySelector('.set-number').textContent = `Set ${index + 1}:`;
+      });
+    }
+
+    function showHistory(select) {
+      const fullExerciseName = select.value; // e.g., "Chest - Bench"
+      // Navigate up to the exercise-block, then find the history div
+      const historyDiv = select.closest('.exercise-block').querySelector('.history');
+      
+      if (!fullExerciseName) {
+        historyDiv.classList.remove('show');
+        return;
+      }
+      
+      // Extract just the exercise name (after the " - ")
+      const exerciseName = fullExerciseName.split(' - ')[1] || fullExerciseName;
+      
+      // Show loading indicator
+      historyDiv.innerHTML = `
+        <div style="text-align: center; padding: 10px;">
+          <span style="color: #007bff;">⏳ Loading historical data...</span>
+        </div>
+      `;
+      historyDiv.classList.add('show');
+      
+      google.script.run.withSuccessHandler(function(data) {
+        const records = JSON.parse(data);
+        
+        if (records && records.length > 0) {
+          // Separate recent workout from historical stats
+          const recentWorkout = records.find(r => r.isRecentWorkout);
+          const historicalStats = records.filter(r => !r.isRecentWorkout);
+          
+          // Create table with all historical data
+          let tableHTML = `<strong>📊 Historical Data for ${exerciseName}:</strong>`;
+          
+          // Add most recent workout section if available
+          if (recentWorkout) {
+            tableHTML += `
+              <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 6px; padding: 8px; margin: 8px 0;">
+                <strong style="color: #2e7d32;">🔥 Most Recent Workout:</strong>
+                <div style="font-size: 14px; margin-top: 4px;">
+                  <strong>${recentWorkout.weight} lbs × ${recentWorkout.reps} reps</strong>
+                  ${recentWorkout.rir ? ` (RIR: ${recentWorkout.rir})` : ''}
+                  <span style="color: #666; margin-left: 8px;">${recentWorkout.date}</span>
+                </div>
+              </div>
+            `;
+          }
+          
+          // Add historical stats table if available
+          if (historicalStats.length > 0) {
+            tableHTML += `
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>Weight</th>
+                    <th>Reps</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+            `;
+            
+            historicalStats.forEach(record => {
+              tableHTML += `
+                <tr>
+                  <td>${record.weight} lbs</td>
+                  <td>${record.reps}</td>
+                  <td>${record.date}</td>
+                </tr>
+              `;
+            });
+            
+            tableHTML += `
+                </tbody>
+              </table>
+            `;
+          }
+          
+          historyDiv.innerHTML = tableHTML;
+          historyDiv.classList.add('show');
+        } else {
+          // No data available - don't show anything (as requested)
+          historyDiv.classList.remove('show');
+        }
+      })
+      .withFailureHandler(function(error) {
+        console.error("Error fetching history:", error);
+        historyDiv.innerHTML = '<div class="no-history">⚠️ Error fetching history</div>';
+        historyDiv.classList.add('show');
+      }).getHistoricalData(exerciseName); // Pass just the exercise name, not the full "Type - Exercise"
+    }
+
+    document.getElementById('workoutForm').onsubmit = function(e) {
+      e.preventDefault();
+      
+      // Get the submit button and show loading state
+      const submitButton = e.target.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
+      submitButton.innerHTML = '⏳ Saving Workout...';
+      submitButton.disabled = true;
+      
+      const blocks = document.querySelectorAll('.exercise-block');
+      let exercises = [];
+      
+      // Validate and collect exercise data
+      let hasErrors = false;
+      blocks.forEach(block => {
+        const exercise = block.querySelector('.exercise-select').value;
+        if (!exercise) {
+          hasErrors = true;
+          return;
+        }
+        
+        let sets = [];
+        const setRows = block.querySelectorAll('.sets-row');
+        
+        if (setRows.length === 0) {
+          hasErrors = true;
+          return;
+        }
+        
+        setRows.forEach((row, index) => {
+          const inputs = row.querySelectorAll('input');
+          const rirSelect = row.querySelector('select');
+          
+          // Validate required fields
+          if (!inputs[0].value || !inputs[1].value) {
+            hasErrors = true;
+            return;
+          }
+          
+          sets.push({
+            sets: index + 1, // Set number (1, 2, 3, etc.)
+            reps: inputs[0].value,
+            weight: inputs[1].value,
+            rir: rirSelect.value || '' // RIR rating (1-5)
+          });
+        });
+        
+        if (sets.length > 0) {
+          exercises.push({exercise, sets});
+        }
+      });
+      
+      // Reset button if validation fails
+      if (hasErrors || exercises.length === 0) {
+        submitButton.innerHTML = originalButtonText;
+        submitButton.disabled = false;
+        alert('❌ Please complete all exercise fields (type, exercise, reps, and weight) before submitting.');
+        return;
+      }
+      
+      // Show progress feedback
+      console.log('Submitting workout with', exercises.length, 'exercises');
+      
+      // Submit workout with timeout handling
+      const timeoutId = setTimeout(() => {
+        submitButton.innerHTML = '⚠️ Taking longer than expected...';
+      }, 5000);
+      
+      google.script.run
+        .withSuccessHandler(function(result) {
+          clearTimeout(timeoutId);
+          console.log('Workout submission successful:', result);
+          
+          // Show success state briefly
+          submitButton.innerHTML = '✅ Workout Saved!';
+          submitButton.style.backgroundColor = '#28a745';
+          
+          // Reset form and button after success
+          setTimeout(() => {
+            // Reset button
+            submitButton.innerHTML = originalButtonText;
+            submitButton.disabled = false;
+            submitButton.style.backgroundColor = '';
+            
+            // Clear all exercise blocks
+            const exercisesDiv = document.getElementById('exercises');
+            exercisesDiv.innerHTML = '';
+            
+            // Add a fresh exercise block
+            addExerciseBlock();
+            
+            // Show success message without refresh
+            alert('🎉 Workout logged successfully! Ready for your next workout.');
+          }, 1500);
+        })
+        .withFailureHandler(function(error) {
+          clearTimeout(timeoutId);
+          console.error('Workout submission failed:', error);
+          
+          // Reset button state
+          submitButton.innerHTML = originalButtonText;
+          submitButton.disabled = false;
+          submitButton.style.backgroundColor = '';
+          
+          // Show detailed error message
+          const errorMsg = error.message || error.toString() || 'Unknown error occurred';
+          alert(`❌ Error saving workout:\n\n${errorMsg}\n\nPlease try again. If the problem persists, check your internet connection.`);
+        })
+        .addWorkout({exercises});
+    };
+
+    fetchExerciseList();
+  </script>
+</body>
+</html>
