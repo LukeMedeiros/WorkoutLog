@@ -10,6 +10,249 @@
       font-size: 18px; /* Larger base font */
       line-height: 1.5;
     }
+    
+    /* Tab Styles */
+    .tab-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .tab-header {
+      display: flex;
+      background: #f8f9fa;
+      border-bottom: 2px solid #e9ecef;
+    }
+    
+    .tab-button {
+      flex: 1;
+      padding: 16px 20px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #6c757d;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+    
+    .tab-button:hover {
+      background: #e9ecef;
+      color: #495057;
+    }
+    
+    .tab-button.active {
+      color: #007bff;
+      background: white;
+      border-bottom-color: #007bff;
+    }
+    
+    .tab-content {
+      padding: 20px;
+      min-height: 400px;
+    }
+    
+    .tab-pane {
+      display: none;
+    }
+    
+    .tab-pane.active {
+      display: block;
+    }
+    
+    /* Past Workouts Styles */
+    .past-workout-day {
+      background: white;
+      border: 2px solid #e1e5e9;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .past-workout-header {
+      background: #007bff;
+      color: white;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.2s;
+    }
+    
+    .past-workout-header:hover {
+      background: #0056b3;
+    }
+    
+    .past-workout-header .collapse-icon {
+      font-size: 16px;
+      transition: transform 0.3s ease;
+    }
+    
+    .past-workout-header.collapsed .collapse-icon {
+      transform: rotate(-90deg);
+    }
+    
+    .past-workout-exercises {
+      padding: 16px;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .past-workout-exercises.collapsed {
+      max-height: 0;
+      padding: 0 16px;
+    }
+    
+    .past-exercise-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .past-exercise-details {
+      flex: 1;
+    }
+    
+    .past-exercise-name {
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 4px;
+    }
+    
+    .past-exercise-sets {
+      font-size: 14px;
+      color: #6c757d;
+    }
+    
+    .select-workout-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .select-workout-btn:hover {
+      background: #1e7e34;
+      transform: translateY(-1px);
+    }
+    
+    .no-workouts {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6c757d;
+      font-size: 16px;
+    }
+    
+    /* Stats Styles */
+    .stats-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .stats-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .stats-table th {
+      background: #007bff;
+      color: white;
+      padding: 16px 12px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    
+    .stats-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 16px;
+    }
+    
+    .stats-table tr:hover {
+      background: #f8f9fa;
+    }
+    
+    .stats-table .muscle-group {
+      font-weight: 600;
+      color: #212529;
+    }
+    
+    .stats-table .set-count {
+      text-align: center;
+      font-weight: 600;
+      color: #007bff;
+    }
+    
+    .stats-table .total-row {
+      background: #e8f4f8;
+      font-weight: 700;
+    }
+    
+    .stats-table .total-row td {
+      border-top: 2px solid #007bff;
+      color: #007bff;
+    }
+    
+    .stats-table .current-week-header {
+      background: #28a745 !important;
+      color: white !important;
+    }
+    
+    .stats-table .current-week-cell {
+      background: #d4edda;
+      text-align: center;
+      font-weight: 700;
+      color: #155724;
+      border-left: 3px solid #28a745;
+      border-right: 3px solid #28a745;
+      padding: 8px 4px;
+    }
+    
+    .stats-table .current-week-main {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    
+    .stats-table .progress-detail {
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    
+    .stats-table .progress-positive-inline .progress-detail {
+      color: #28a745;
+    }
+    
+    .stats-table .progress-negative-inline .progress-detail {
+      color: #dc3545;
+    }
+    
+    .stats-table .progress-neutral-inline .progress-detail {
+      color: #6c757d;
+    }
+    
+    /* Exercise Block Styles */
     .exercise-block { 
       border: 2px solid #e1e5e9; 
       padding: 20px; 
@@ -17,6 +260,58 @@
       border-radius: 16px; 
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .exercise-header:hover {
+      background: #e9ecef;
+    }
+    
+    .exercise-header.collapsed {
+      margin-bottom: 0;
+    }
+    
+    .exercise-title {
+      font-weight: 700;
+      font-size: 18px;
+      color: #212529;
+    }
+    
+    .exercise-summary {
+      font-size: 14px;
+      color: #6c757d;
+      margin-top: 4px;
+    }
+    
+    .exercise-collapse-icon {
+      font-size: 16px;
+      transition: transform 0.3s ease;
+      color: #007bff;
+    }
+    
+    .exercise-header.collapsed .exercise-collapse-icon {
+      transform: rotate(-90deg);
+    }
+    
+    .exercise-content {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .exercise-content.collapsed {
+      max-height: 0;
+      opacity: 0;
     }
     .sets-row { 
       display: flex; 
@@ -264,17 +559,167 @@
 <body>
   <h2>💪 Workout Logger</h2>
   
-  <form id="workoutForm">
-    <div id="exercises"></div>
-    <button type="button" class="btn-primary" onclick="addExerciseBlock()">+ Add Exercise</button>
-    <br><br>
-    <button type="submit" class="btn-success">🏁 Complete Workout</button>
-  </form>
+  <div class="tab-container">
+    <div class="tab-header">
+      <button class="tab-button active" onclick="switchTab('log-workout')">Log Workout</button>
+      <button class="tab-button" onclick="switchTab('past-workouts')">Past Workouts</button>
+      <button class="tab-button" onclick="switchTab('stats')">Stats</button>
+    </div>
+    
+    <div class="tab-content">
+      <!-- Log Workout Tab -->
+      <div id="log-workout" class="tab-pane active">
+        <form id="workoutForm">
+          <div id="exercises"></div>
+          <button type="button" class="btn-primary" onclick="addExerciseBlock()">+ Add Exercise</button>
+          <br><br>
+          <button type="submit" class="btn-success">🏁 Complete Workout</button>
+        </form>
+      </div>
+      
+      <!-- Past Workouts Tab -->
+      <div id="past-workouts" class="tab-pane">
+        <div id="past-workouts-content">
+          <div style="text-align: center; padding: 20px;">
+            <span style="color: #007bff;">⏳ Loading past workouts...</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Tab -->
+      <div id="stats" class="tab-pane">
+        <div id="stats-content">
+          <div style="text-align: center; padding: 20px;">
+            <span style="color: #007bff;">⏳ Loading statistics...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
+    // Global variables
     let exerciseList = [];
     let exerciseTypes = [];
+    let currentTab = 'log-workout';
+    
+    // Data caching
+    let cachedData = {
+      pastWorkouts: null,
+      stats: null,
+      exerciseHistory: new Map(), // Cache for individual exercise history
+      lastWorkoutSubmission: Date.now() // Initialize with current time to prevent immediate refresh
+    };
 
+    // ===== TAB MANAGEMENT =====
+    function switchTab(tabName) {
+      // Hide all tab panes
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.remove('active');
+      });
+      
+      // Remove active class from all tab buttons
+      document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // Show selected tab pane
+      document.getElementById(tabName).classList.add('active');
+      
+      // Add active class to clicked button
+      event.target.classList.add('active');
+      
+      currentTab = tabName;
+      
+      // Load content for the selected tab
+      if (tabName === 'past-workouts') {
+        loadPastWorkouts();
+      } else if (tabName === 'stats') {
+        loadStats();
+      }
+    }
+
+    // ===== DATA CACHING UTILITIES =====
+    function clearDataCache() {
+      cachedData.pastWorkouts = null;
+      cachedData.stats = null;
+      cachedData.exerciseHistory.clear();
+      cachedData.lastWorkoutSubmission = Date.now();
+      console.log('Data cache cleared after workout submission');
+    }
+
+    function shouldRefreshCache() {
+      // Refresh cache if no workout has been submitted yet, or if it's been more than 1 hour
+      if (!cachedData.lastWorkoutSubmission) return true;
+      const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+      return (Date.now() - cachedData.lastWorkoutSubmission) > oneHour;
+    }
+
+    function isCacheValid(cacheData) {
+      const isValid = cacheData !== null && cacheData !== undefined && !shouldRefreshCache();
+      console.log('Cache validation:', { 
+        hasData: cacheData !== null && cacheData !== undefined, 
+        shouldRefresh: shouldRefreshCache(), 
+        isValid: isValid,
+        lastSubmission: cachedData.lastWorkoutSubmission
+      });
+      return isValid;
+    }
+
+    function debugCache() {
+      console.log('=== CACHE DEBUG ===');
+      console.log('Past workouts cached:', cachedData.pastWorkouts !== null);
+      console.log('Stats cached:', cachedData.stats !== null);
+      console.log('Exercise history entries:', cachedData.exerciseHistory.size);
+      console.log('Last workout submission:', new Date(cachedData.lastWorkoutSubmission));
+      console.log('Should refresh cache:', shouldRefreshCache());
+      console.log('==================');
+    }
+
+    // Make debug function available globally for testing
+    window.debugCache = debugCache;
+    
+    // Debug function to test exercise setting
+    window.testExerciseSet = function(blockIndex, muscle, exercise) {
+      const blocks = document.querySelectorAll('.exercise-block');
+      if (blocks[blockIndex]) {
+        const block = blocks[blockIndex];
+        const typeSelect = block.querySelector('.type-select');
+        const exerciseSelect = block.querySelector('.exercise-select');
+        
+        console.log('=== TESTING EXERCISE SET ===');
+        console.log('Block:', block);
+        console.log('Type select:', typeSelect);
+        console.log('Exercise select:', exerciseSelect);
+        console.log('Setting muscle type to:', muscle);
+        console.log('Looking for exercise:', exercise);
+        
+        typeSelect.value = muscle;
+        filterExercisesForBlock(typeSelect);
+        
+        setTimeout(() => {
+          const fullName = `${muscle} - ${exercise}`;
+          console.log('Full name to match:', fullName);
+          console.log('Available options:', Array.from(exerciseSelect.options).map(opt => opt.value));
+          
+          exerciseSelect.value = fullName;
+          console.log('Value set to:', exerciseSelect.value);
+          console.log('Selected option:', exerciseSelect.selectedOptions[0]?.text);
+          
+          exerciseSelect.dispatchEvent(new Event('change', { bubbles: true }));
+          showHistory(exerciseSelect);
+          updateExerciseHeader(block);
+          
+          console.log('Final state - value:', exerciseSelect.value);
+          console.log('Final state - selected text:', exerciseSelect.selectedOptions[0]?.text);
+        }, 100);
+      }
+    };
+
+    // ===== INITIALIZATION =====
     function fetchExerciseList() {
+      // Show initial loading indicator
+      showInitialLoading();
+      
       google.script.run.withSuccessHandler(function(list) {
         exerciseList = list;
         // Extract unique exercise types (assuming format like "Back - Barbell Rows")
@@ -283,68 +728,242 @@
           return parts.length > 1 ? parts[0] : 'Other';
         }))].sort();
         
+        console.log('Exercise list loaded:', exerciseList.length, 'exercises');
+        console.log('Exercise types:', exerciseTypes);
+        
+        // Hide loading and show the app
+        hideInitialLoading();
         addExerciseBlock(); // Add first block
+      })
+      .withFailureHandler(function(error) {
+        console.error('Error loading exercise list:', error);
+        hideInitialLoading();
+        
+        // Show error state
+        document.body.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: #721c24;">
+            <h2>❌ Error Loading App</h2>
+            <p>Failed to load exercise data: ${error.message || error}</p>
+            <button onclick="location.reload()" style="padding: 12px 24px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer;">
+              🔄 Retry
+            </button>
+          </div>
+        `;
       }).getExerciseList();
     }
 
-    function addExerciseBlock() {
-      const exercisesDiv = document.getElementById('exercises');
-      const block = document.createElement('div');
-      block.className = 'exercise-block';
-      block.innerHTML = `
-        <div class="exercise-selectors">
-          <div>
-            <label>Exercise Type</label>
-            <select class="type-select" onchange="filterExercisesForBlock(this)">
-              <option value="">Select Type</option>
-              ${exerciseTypes.map(type => `<option value="${type}">${type}</option>`).join('')}
-            </select>
-          </div>
-          <div>
-            <label>Exercise</label>
-            <select class="exercise-select" onchange="showHistory(this)" disabled>
-              <option value="">First select a type</option>
-            </select>
+    function showInitialLoading() {
+      // Create loading overlay
+      const loadingOverlay = document.createElement('div');
+      loadingOverlay.id = 'initial-loading';
+      loadingOverlay.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(248, 249, 250, 0.95);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        ">
+          <div style="
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            margin: 20px;
+          ">
+            <div style="
+              width: 60px;
+              height: 60px;
+              border: 4px solid #e9ecef;
+              border-top: 4px solid #007bff;
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+              margin: 0 auto 20px auto;
+            "></div>
+            <h2 style="
+              color: #212529;
+              margin: 0 0 12px 0;
+              font-size: 24px;
+              font-weight: 700;
+            ">💪 Loading Workout Logger</h2>
+            <p style="
+              color: #6c757d;
+              margin: 0;
+              font-size: 16px;
+              line-height: 1.5;
+            ">Setting up your workout environment...</p>
+            <div id="loading-progress" style="
+              margin-top: 16px;
+              color: #007bff;
+              font-size: 14px;
+              font-weight: 500;
+            ">Loading exercise database...</div>
           </div>
         </div>
-        <div class="history"></div>
-        <div class="sets-list"></div>
-        <button type="button" class="btn-primary" onclick="addSetRow(this)">+ Add Set</button>
-        <button type="button" class="btn-danger" onclick="removeExerciseBlock(this)">Remove Exercise</button>
-        <hr>
+        <style>
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        </style>
+      `;
+      
+      document.body.appendChild(loadingOverlay);
+    }
+
+    function hideInitialLoading() {
+      const loadingOverlay = document.getElementById('initial-loading');
+      if (loadingOverlay) {
+        // Fade out animation
+        loadingOverlay.style.transition = 'opacity 0.3s ease';
+        loadingOverlay.style.opacity = '0';
+        
+        setTimeout(() => {
+          loadingOverlay.remove();
+        }, 300);
+      }
+    }
+
+    // ===== EXERCISE BLOCK MANAGEMENT =====
+    function addExerciseBlock() {
+      const exercisesDiv = document.getElementById('exercises');
+      const blockId = `exercise-block-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      const block = document.createElement('div');
+      block.className = 'exercise-block';
+      block.id = blockId;
+      block.innerHTML = `
+        <div class="exercise-header" onclick="toggleExerciseBlock('${blockId}')">
+          <div>
+            <div class="exercise-title">New Exercise</div>
+            <div class="exercise-summary">Click to configure exercise</div>
+          </div>
+          <span class="exercise-collapse-icon">▼</span>
+        </div>
+        <div class="exercise-content">
+          <div class="exercise-selectors">
+            <div>
+              <label>Exercise Type</label>
+              <select class="type-select" onchange="filterExercisesForBlock(this)">
+                <option value="">Select Type</option>
+                ${exerciseTypes.map(type => `<option value="${type}">${type}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <label>Exercise</label>
+              <select class="exercise-select" onchange="showHistory(this)" disabled>
+                <option value="">First select a type</option>
+              </select>
+            </div>
+          </div>
+          <div class="history"></div>
+          <div class="sets-list"></div>
+          <button type="button" class="btn-primary" onclick="addSetRow(this)">+ Add Set</button>
+          <button type="button" class="btn-danger" onclick="removeExerciseBlock(this)">Remove Exercise</button>
+          <hr>
+        </div>
       `;
       exercisesDiv.appendChild(block);
       addSetRow(block.querySelector('button[onclick^="addSetRow"]'));
     }
 
+    function toggleExerciseBlock(blockId) {
+      const block = document.getElementById(blockId);
+      const header = block.querySelector('.exercise-header');
+      const content = block.querySelector('.exercise-content');
+      
+      if (content.classList.contains('collapsed')) {
+        // Expand
+        content.classList.remove('collapsed');
+        header.classList.remove('collapsed');
+      } else {
+        // Collapse
+        content.classList.add('collapsed');
+        header.classList.add('collapsed');
+      }
+    }
+
+    function updateExerciseHeader(block) {
+      const header = block.querySelector('.exercise-header');
+      const titleDiv = header.querySelector('.exercise-title');
+      const summaryDiv = header.querySelector('.exercise-summary');
+      
+      const exerciseSelect = block.querySelector('.exercise-select');
+      const setRows = block.querySelectorAll('.sets-row');
+      
+      if (exerciseSelect.value && exerciseSelect.value !== "") {
+        // Extract exercise name from "Type - Exercise" format
+        const exerciseName = exerciseSelect.value.split(' - ')[1] || exerciseSelect.value;
+        titleDiv.textContent = exerciseName;
+        
+        if (setRows.length > 0) {
+          // Create summary of sets
+          const setsSummary = Array.from(setRows).map((row, index) => {
+            const inputs = row.querySelectorAll('input');
+            const reps = inputs[0].value || inputs[0].placeholder.replace(' (last time)', '') || '?';
+            const weight = inputs[1].value || inputs[1].placeholder.replace(' lbs (last time)', '') || '?';
+            return `${reps}×${weight}lbs`;
+          }).join(', ');
+          
+          summaryDiv.textContent = `${setRows.length} sets: ${setsSummary}`;
+        } else {
+          summaryDiv.textContent = 'No sets added yet';
+        }
+      } else {
+        titleDiv.textContent = 'New Exercise';
+        summaryDiv.textContent = 'Click to configure exercise';
+      }
+    }
+
     function filterExercisesForBlock(typeSelect) {
       const selectedType = typeSelect.value;
-      const exerciseSelect = typeSelect.parentElement.parentElement.querySelector('.exercise-select');
+      const block = typeSelect.closest('.exercise-block');
+      const exerciseSelect = block.querySelector('.exercise-select');
+      
+      console.log('filterExercisesForBlock called with type:', selectedType);
+      console.log('Exercise list available:', exerciseList.length > 0);
       
       if (!selectedType) {
         exerciseSelect.innerHTML = '<option value="">First select a type above</option>';
         exerciseSelect.disabled = true;
+        updateExerciseHeader(block);
         return;
       }
       
       // Filter exercises for this specific type
       const filteredExercises = exerciseList.filter(ex => ex.startsWith(selectedType + ' - '));
+      console.log(`Filtered exercises for ${selectedType}:`, filteredExercises);
       
       exerciseSelect.innerHTML = '<option value="">Select Exercise</option>' +
         filteredExercises.map(e => `<option value="${e}">${e}</option>`).join('');
       exerciseSelect.disabled = false;
       
+      console.log('Exercise select populated with', filteredExercises.length, 'options');
+      console.log('Exercise select enabled:', !exerciseSelect.disabled);
+      
       // Clear history when type changes
-      const historyDiv = exerciseSelect.parentElement.querySelector('.history');
+      const historyDiv = block.querySelector('.history');
       historyDiv.classList.remove('show');
+      
+      updateExerciseHeader(block);
     }
 
     function removeExerciseBlock(btn) {
       btn.parentElement.remove();
     }
 
+    // ===== SET MANAGEMENT =====
     function addSetRow(btn) {
-      const setsList = btn.parentElement.querySelector('.sets-list');
+      const block = btn.closest('.exercise-block');
+      const setsList = block.querySelector('.sets-list');
       const setNumber = setsList.children.length + 1;
       const row = document.createElement('div');
       row.className = 'sets-row';
@@ -352,11 +971,11 @@
         <div class="set-number">Set ${setNumber}:</div>
         <div style="display: flex; flex-direction: column; flex: 1;">
           <label style="font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 4px;">Reps</label>
-          <input type="number" placeholder="Reps" min="1" required style="width: 100%;">
+          <input type="number" placeholder="Reps" min="1" required style="width: 100%;" oninput="updateExerciseHeaderFromInput(this)">
         </div>
         <div style="display: flex; flex-direction: column; flex: 1;">
           <label style="font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 4px;">Weight (lbs)</label>
-          <input type="number" placeholder="Weight" min="0" step="0.5" required style="width: 100%;">
+          <input type="number" placeholder="Weight" min="0" step="0.5" required style="width: 100%;" oninput="updateExerciseHeaderFromInput(this)">
         </div>
         <div style="display: flex; flex-direction: column; flex: 0.8;">
           <label style="font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 4px;">RIR (1-5)</label>
@@ -373,12 +992,15 @@
       `;
       setsList.appendChild(row);
       updateSetNumbers(setsList);
+      updateExerciseHeader(block);
     }
 
     function removeSetRow(btn) {
+      const block = btn.closest('.exercise-block');
       const setsList = btn.parentElement.parentElement;
       btn.parentElement.remove();
       updateSetNumbers(setsList);
+      updateExerciseHeader(block);
     }
 
     function updateSetNumbers(setsList) {
@@ -387,10 +1009,19 @@
       });
     }
 
+    function updateExerciseHeaderFromInput(input) {
+      const block = input.closest('.exercise-block');
+      updateExerciseHeader(block);
+    }
+
+    // ===== HISTORY AND PAST WORKOUTS =====
     function showHistory(select) {
       const fullExerciseName = select.value; // e.g., "Chest - Bench"
-      // Navigate up to the exercise-block, then find the history div
-      const historyDiv = select.closest('.exercise-block').querySelector('.history');
+      const block = select.closest('.exercise-block');
+      const historyDiv = block.querySelector('.history');
+      
+      // Update exercise header
+      updateExerciseHeader(block);
       
       if (!fullExerciseName) {
         historyDiv.classList.remove('show');
@@ -399,6 +1030,14 @@
       
       // Extract just the exercise name (after the " - ")
       const exerciseName = fullExerciseName.split(' - ')[1] || fullExerciseName;
+      
+      // Check cache first
+      if (cachedData.exerciseHistory.has(exerciseName) && !shouldRefreshCache()) {
+        console.log(`Using cached history for ${exerciseName}`);
+        const cachedRecords = cachedData.exerciseHistory.get(exerciseName);
+        displayExerciseHistory(historyDiv, exerciseName, cachedRecords);
+        return;
+      }
       
       // Show loading indicator
       historyDiv.innerHTML = `
@@ -410,65 +1049,9 @@
       
       google.script.run.withSuccessHandler(function(data) {
         const records = JSON.parse(data);
-        
-        if (records && records.length > 0) {
-          // Separate recent workout from historical stats
-          const recentWorkout = records.find(r => r.isRecentWorkout);
-          const historicalStats = records.filter(r => !r.isRecentWorkout);
-          
-          // Create table with all historical data
-          let tableHTML = `<strong>📊 Historical Data for ${exerciseName}:</strong>`;
-          
-          // Add most recent workout section if available
-          if (recentWorkout) {
-            tableHTML += `
-              <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 6px; padding: 8px; margin: 8px 0;">
-                <strong style="color: #2e7d32;">🔥 Most Recent Workout:</strong>
-                <div style="font-size: 14px; margin-top: 4px;">
-                  <strong>${recentWorkout.weight} lbs × ${recentWorkout.reps} reps</strong>
-                  ${recentWorkout.rir ? ` (RIR: ${recentWorkout.rir})` : ''}
-                  <span style="color: #666; margin-left: 8px;">${recentWorkout.date}</span>
-                </div>
-              </div>
-            `;
-          }
-          
-          // Add historical stats table if available
-          if (historicalStats.length > 0) {
-            tableHTML += `
-              <table class="history-table">
-                <thead>
-                  <tr>
-                    <th>Weight</th>
-                    <th>Reps</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-            `;
-            
-            historicalStats.forEach(record => {
-              tableHTML += `
-                <tr>
-                  <td>${record.weight} lbs</td>
-                  <td>${record.reps}</td>
-                  <td>${record.date}</td>
-                </tr>
-              `;
-            });
-            
-            tableHTML += `
-                </tbody>
-              </table>
-            `;
-          }
-          
-          historyDiv.innerHTML = tableHTML;
-          historyDiv.classList.add('show');
-        } else {
-          // No data available - don't show anything (as requested)
-          historyDiv.classList.remove('show');
-        }
+        cachedData.exerciseHistory.set(exerciseName, records); // Cache the data
+        console.log(`Exercise history cached for ${exerciseName}`);
+        displayExerciseHistory(historyDiv, exerciseName, records);
       })
       .withFailureHandler(function(error) {
         console.error("Error fetching history:", error);
@@ -477,6 +1060,540 @@
       }).getHistoricalData(exerciseName); // Pass just the exercise name, not the full "Type - Exercise"
     }
 
+    function displayExerciseHistory(historyDiv, exerciseName, records) {
+      if (records && records.length > 0) {
+        // Separate recent workout from historical stats
+        const recentWorkout = records.find(r => r.isRecentWorkout);
+        const historicalStats = records.filter(r => !r.isRecentWorkout);
+        
+        // Create table with all historical data
+        let tableHTML = `<strong>📊 Historical Data for ${exerciseName}:</strong>`;
+        
+        // Add most recent workout section if available
+        if (recentWorkout) {
+          tableHTML += `
+            <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 6px; padding: 8px; margin: 8px 0;">
+              <strong style="color: #2e7d32;">🔥 Most Recent Workout:</strong>
+              <div style="font-size: 14px; margin-top: 4px;">
+                <strong>${recentWorkout.weight} lbs × ${recentWorkout.reps} reps</strong>
+                ${recentWorkout.rir ? ` (RIR: ${recentWorkout.rir})` : ''}
+                <span style="color: #666; margin-left: 8px;">${recentWorkout.date}</span>
+              </div>
+            </div>
+          `;
+        }
+        
+        // Add historical stats table if available
+        if (historicalStats.length > 0) {
+          tableHTML += `
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th>Weight</th>
+                  <th>Reps</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+          
+          historicalStats.forEach(record => {
+            tableHTML += `
+              <tr>
+                <td>${record.weight} lbs</td>
+                <td>${record.reps}</td>
+                <td>${record.date}</td>
+              </tr>
+            `;
+          });
+          
+          tableHTML += `
+              </tbody>
+            </table>
+          `;
+        }
+        
+        historyDiv.innerHTML = tableHTML;
+        historyDiv.classList.add('show');
+      } else {
+        // No data available - don't show anything (as requested)
+        historyDiv.classList.remove('show');
+      }
+    }
+
+    function loadPastWorkouts() {
+      const contentDiv = document.getElementById('past-workouts-content');
+      
+      // Check if we have cached data and don't need to refresh
+      if (isCacheValid(cachedData.pastWorkouts)) {
+        console.log('Using cached past workouts data');
+        displayPastWorkouts(cachedData.pastWorkouts);
+        return;
+      }
+      
+      contentDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <span style="color: #007bff;">⏳ Loading past workouts...</span>
+        </div>
+      `;
+      
+      google.script.run.withSuccessHandler(function(data) {
+        const workouts = JSON.parse(data);
+        cachedData.pastWorkouts = workouts; // Cache the data
+        console.log('Past workouts data loaded and cached');
+        displayPastWorkouts(workouts);
+      })
+      .withFailureHandler(function(error) {
+        console.error("Error loading past workouts:", error);
+        contentDiv.innerHTML = `
+          <div class="no-workouts">
+            ⚠️ Error loading past workouts: ${error.message || error}
+          </div>
+        `;
+      }).getPastWeekWorkouts();
+    }
+
+    function displayPastWorkouts(workouts) {
+      const contentDiv = document.getElementById('past-workouts-content');
+      
+      if (!workouts || workouts.length === 0) {
+        contentDiv.innerHTML = `
+          <div class="no-workouts">
+            📅 No workouts found.<br>
+            <small>Searched for recent workout history.</small>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = `
+        <div style="text-align: center; margin-bottom: 16px;">
+          <button id="toggle-all-btn" class="btn-primary" onclick="toggleAllWorkouts()" style="font-size: 14px; padding: 8px 16px;">
+            Collapse All
+          </button>
+        </div>
+      `;
+      
+      workouts.forEach((day, index) => {
+        const workoutId = `workout-${index}`;
+        html += `
+          <div class="past-workout-day">
+            <div class="past-workout-header" onclick="toggleWorkout('${workoutId}')">
+              <span>📅 ${day.workoutName || day.date} (${day.dayName})</span>
+              <span class="collapse-icon">▼</span>
+            </div>
+            <div id="${workoutId}" class="past-workout-exercises">
+        `;
+        
+        day.exercises.forEach(exercise => {
+          html += `
+            <div class="past-exercise-item">
+              <div class="past-exercise-details">
+                <div class="past-exercise-name">${exercise.muscle} - ${exercise.exercise}</div>
+                <div class="past-exercise-sets">${exercise.setsInfo}</div>
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `
+              <div style="text-align: center; margin-top: 12px;">
+                <button class="select-workout-btn" onclick="selectPastWorkout('${day.date}')">
+                  Select This Workout
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      contentDiv.innerHTML = html;
+    }
+
+    function toggleWorkout(workoutId) {
+      const exercisesDiv = document.getElementById(workoutId);
+      const headerDiv = exercisesDiv.previousElementSibling;
+      
+      if (exercisesDiv.classList.contains('collapsed')) {
+        // Expand
+        exercisesDiv.classList.remove('collapsed');
+        headerDiv.classList.remove('collapsed');
+      } else {
+        // Collapse
+        exercisesDiv.classList.add('collapsed');
+        headerDiv.classList.add('collapsed');
+      }
+      
+      updateToggleAllButton();
+    }
+
+    function toggleAllWorkouts() {
+      const allExerciseDivs = document.querySelectorAll('.past-workout-exercises');
+      const allHeaderDivs = document.querySelectorAll('.past-workout-header');
+      const toggleBtn = document.getElementById('toggle-all-btn');
+      
+      const isCollapsing = toggleBtn.textContent === 'Collapse All';
+      
+      allExerciseDivs.forEach((div, index) => {
+        if (isCollapsing) {
+          div.classList.add('collapsed');
+          allHeaderDivs[index].classList.add('collapsed');
+        } else {
+          div.classList.remove('collapsed');
+          allHeaderDivs[index].classList.remove('collapsed');
+        }
+      });
+      
+      toggleBtn.textContent = isCollapsing ? 'Expand All' : 'Collapse All';
+    }
+
+    function updateToggleAllButton() {
+      const toggleBtn = document.getElementById('toggle-all-btn');
+      if (!toggleBtn) return;
+      
+      const allExerciseDivs = document.querySelectorAll('.past-workout-exercises');
+      const collapsedCount = document.querySelectorAll('.past-workout-exercises.collapsed').length;
+      
+      if (collapsedCount === 0) {
+        toggleBtn.textContent = 'Collapse All';
+      } else if (collapsedCount === allExerciseDivs.length) {
+        toggleBtn.textContent = 'Expand All';
+      } else {
+        toggleBtn.textContent = 'Collapse All';
+      }
+    }
+
+    function selectPastWorkout(date) {
+      // Show loading feedback
+      const button = event.target;
+      const originalText = button.textContent;
+      button.textContent = '⏳ Loading...';
+      button.disabled = true;
+      button.style.backgroundColor = '#6c757d';
+      
+      // Switch to Log Workout tab and show loading indicator
+      switchTab('log-workout');
+      document.querySelector('.tab-button').click(); // Activate the first tab button
+      
+      // Show loading indicator in the Log Workout tab
+      const exercisesDiv = document.getElementById('exercises');
+      exercisesDiv.innerHTML = `
+        <div style="text-align: center; padding: 40px 20px; background: white; border-radius: 12px; margin: 20px 0;">
+          <div style="color: #007bff; font-size: 18px; margin-bottom: 12px;">⏳ Loading workout...</div>
+          <div style="color: #6c757d; font-size: 14px;">Setting up exercises from ${date}</div>
+        </div>
+      `;
+      
+      // Load the workout data for that date
+      google.script.run.withSuccessHandler(function(data) {
+        const workoutData = JSON.parse(data);
+        populateWorkoutForm(workoutData, button, originalText, date);
+      })
+      .withFailureHandler(function(error) {
+        console.error("Error loading workout data:", error);
+        
+        // Reset button
+        button.textContent = originalText;
+        button.disabled = false;
+        button.style.backgroundColor = '';
+        
+        // Clear loading and show error
+        exercisesDiv.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; background: #f8d7da; border-radius: 12px; margin: 20px 0; color: #721c24;">
+            ❌ Error loading workout data: ${error.message || error}
+          </div>
+        `;
+        
+        // Add a fresh exercise block after error
+        setTimeout(() => {
+          exercisesDiv.innerHTML = '';
+          addExerciseBlock();
+        }, 3000);
+      }).getWorkoutByDate(date);
+    }
+
+    function populateWorkoutForm(workoutData, button, originalText, date) {
+      console.log('Populating workout form with data:', workoutData);
+      
+      // Clear existing exercises (remove loading indicator)
+      const exercisesDiv = document.getElementById('exercises');
+      exercisesDiv.innerHTML = '';
+      
+      // Show progress indicator
+      const progressDiv = document.createElement('div');
+      progressDiv.id = 'population-progress';
+      progressDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px; background: #e8f4f8; border-radius: 12px; margin-bottom: 20px;">
+          <div style="color: #007bff; font-size: 16px; margin-bottom: 8px;">🏗️ Setting up exercises...</div>
+          <div id="progress-text" style="color: #6c757d; font-size: 14px;">Preparing ${workoutData.length} exercises</div>
+        </div>
+      `;
+      exercisesDiv.appendChild(progressDiv);
+      
+      let completedExercises = 0;
+      
+      // Add exercise blocks for each exercise in the workout
+      workoutData.forEach((exercise, index) => {
+        console.log(`Processing exercise ${index + 1}:`, exercise);
+        
+        setTimeout(() => {
+          // Update progress
+          const progressText = document.getElementById('progress-text');
+          if (progressText) {
+            progressText.textContent = `Setting up exercise ${index + 1} of ${workoutData.length}: ${exercise.exercise}`;
+          }
+          
+          addExerciseBlock();
+          const lastBlock = exercisesDiv.lastElementChild;
+          
+          // Set the exercise type and exercise
+          const typeSelect = lastBlock.querySelector('.type-select');
+          const exerciseSelect = lastBlock.querySelector('.exercise-select');
+          
+          console.log(`Setting type to: ${exercise.muscle}`);
+          
+          // Set the type first
+          typeSelect.value = exercise.muscle;
+          
+          // Trigger the filter to populate exercise options
+          filterExercisesForBlock(typeSelect);
+          
+          // Use setTimeout to ensure the exercise options are populated before setting the value
+          setTimeout(() => {
+            // The exercise name from the data is just the exercise name (e.g., "Pull overs")
+            // But the dropdown options are in format "Type - Exercise" (e.g., "Back - Pull overs")
+            const exerciseName = exercise.exercise; // Just the exercise name without type
+            const fullExerciseName = `${exercise.muscle} - ${exerciseName}`;
+            
+            console.log(`Looking for exercise: "${exerciseName}" in muscle group: "${exercise.muscle}"`);
+            console.log(`Full name to match: "${fullExerciseName}"`);
+            
+            // Check if the exercise exists in the dropdown
+            const exerciseOptions = Array.from(exerciseSelect.options).map(opt => opt.value);
+            console.log('Available exercise options:', exerciseOptions);
+            
+            // Make sure the select is enabled
+            exerciseSelect.disabled = false;
+            
+            // Try exact match first
+            if (exerciseOptions.includes(fullExerciseName)) {
+              exerciseSelect.value = fullExerciseName;
+              console.log('Exact match found - Exercise value set to:', exerciseSelect.value);
+            } else {
+              console.log(`Exact match "${fullExerciseName}" not found, trying partial matches...`);
+              
+              // Try to find a match by exercise name only (case-insensitive)
+              const partialMatch = exerciseOptions.find(opt => {
+                if (!opt || opt === "") return false;
+                const optionExerciseName = opt.split(' - ')[1]; // Get exercise part after " - "
+                if (!optionExerciseName) return false;
+                
+                // Try exact match (case-insensitive)
+                if (optionExerciseName.toLowerCase() === exerciseName.toLowerCase()) {
+                  return true;
+                }
+                
+                // Try partial match (case-insensitive)
+                if (optionExerciseName.toLowerCase().includes(exerciseName.toLowerCase()) ||
+                    exerciseName.toLowerCase().includes(optionExerciseName.toLowerCase())) {
+                  return true;
+                }
+                
+                return false;
+              });
+              
+              if (partialMatch) {
+                console.log(`Partial match found: "${partialMatch}"`);
+                exerciseSelect.value = partialMatch;
+              } else {
+                console.error(`No match found for exercise: "${exerciseName}"`);
+                console.log('Available exercise names (without type):', 
+                  exerciseOptions.filter(opt => opt !== "").map(opt => opt.split(' - ')[1]));
+                
+                // As a last resort, try the first option that contains the exercise name
+                const fuzzyMatch = exerciseOptions.find(opt => 
+                  opt && opt !== "" && opt.toLowerCase().includes(exerciseName.toLowerCase())
+                );
+                
+                if (fuzzyMatch) {
+                  console.log(`Fuzzy match found: "${fuzzyMatch}"`);
+                  exerciseSelect.value = fuzzyMatch;
+                } else {
+                  console.error('No match found at all - leaving exercise unselected');
+                }
+              }
+            }
+            
+            console.log('Final exercise value:', exerciseSelect.value);
+            console.log('Selected option text:', exerciseSelect.selectedOptions[0]?.text);
+            
+            // Force trigger the change event
+            exerciseSelect.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            // Also manually call showHistory to ensure it updates
+            showHistory(exerciseSelect);
+            
+            // Clear existing sets and add new ones with previous data as placeholders
+            const setsList = lastBlock.querySelector('.sets-list');
+            setsList.innerHTML = '';
+            
+            exercise.sets.forEach((set, setIndex) => {
+              console.log(`Adding set ${setIndex + 1}:`, set);
+              addSetRow(lastBlock.querySelector('button[onclick^="addSetRow"]'));
+              const setRow = setsList.children[setIndex];
+              const inputs = setRow.querySelectorAll('input');
+              const rirSelect = setRow.querySelector('select');
+              
+              // Set placeholders with previous workout data
+              inputs[0].placeholder = `${set.reps} (last time)`;
+              inputs[1].placeholder = `${set.weight} lbs (last time)`;
+              if (set.rir) {
+                rirSelect.title = `Last time: RIR ${set.rir}`;
+              }
+            });
+            
+            // Update the exercise header with the loaded data
+            setTimeout(() => {
+              updateExerciseHeader(lastBlock);
+              console.log('Exercise header updated for:', exerciseSelect.value);
+            }, 50);
+            
+            completedExercises++;
+            
+            // Check if all exercises are completed
+            if (completedExercises === workoutData.length) {
+              // Remove progress indicator
+              const progressDiv = document.getElementById('population-progress');
+              if (progressDiv) {
+                progressDiv.remove();
+              }
+              
+              // Reset button and show success
+              button.textContent = '✅ Loaded!';
+              button.style.backgroundColor = '#28a745';
+              
+              // Reset button after a delay (no alert)
+              setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false;
+                button.style.backgroundColor = '';
+              }, 2000);
+            }
+          }, 200); // Increased timeout to ensure dropdown is fully populated
+        }, 300 * index); // Stagger the exercise creation
+      });
+    }
+
+    // ===== STATS FUNCTIONALITY =====
+    function loadStats() {
+      const contentDiv = document.getElementById('stats-content');
+      
+      // Check if we have cached data and don't need to refresh
+      if (isCacheValid(cachedData.stats)) {
+        console.log('Using cached stats data');
+        displayStats(cachedData.stats);
+        return;
+      }
+      
+      contentDiv.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <span style="color: #007bff;">⏳ Loading statistics...</span>
+        </div>
+      `;
+      
+      google.script.run.withSuccessHandler(function(data) {
+        const stats = JSON.parse(data);
+        cachedData.stats = stats; // Cache the data
+        console.log('Stats data loaded and cached');
+        displayStats(stats);
+      })
+      .withFailureHandler(function(error) {
+        console.error("Error loading stats:", error);
+        contentDiv.innerHTML = `
+          <div class="no-workouts">
+            ⚠️ Error loading statistics: ${error.message || error}
+          </div>
+        `;
+      }).getWorkoutStats();
+    }
+
+    function displayStats(stats) {
+      const contentDiv = document.getElementById('stats-content');
+      
+      if (!stats || !stats.weeks || stats.weeks.length === 0) {
+        contentDiv.innerHTML = `
+          <div class="no-workouts">
+            📊 No workout data found for the past 4 weeks.
+          </div>
+        `;
+        return;
+      }
+      
+      let html = `
+        <div class="stats-container">
+          <h3 style="text-align: center; margin-bottom: 16px; color: #212529; font-size: 20px;">
+            📊 Sets Per Muscle Group (Last 4 Weeks)
+          </h3>
+          <table class="stats-table">
+            <thead>
+              <tr>
+                <th>Muscle Group</th>
+      `;
+      
+      // Add week headers (already in descending order from backend)
+      stats.weeks.forEach((week, index) => {
+        const isCurrentWeek = index === 0; // First week is current week
+        const headerClass = isCurrentWeek ? 'current-week-header' : '';
+        html += `<th class="${headerClass}">${week.weekLabel}</th>`;
+      });
+      html += `</tr></thead><tbody>`;
+      
+      // Add rows for each muscle group
+      Object.keys(stats.muscleGroups).forEach(muscle => {
+        html += `<tr><td class="muscle-group">${muscle}</td>`;
+        
+        // Add sets for each week (already in correct order)
+        stats.weeks.forEach((week, index) => {
+          const sets = stats.muscleGroups[muscle][week.weekKey] || 0;
+          const isCurrentWeek = index === 0;
+          
+          if (isCurrentWeek) {
+            // Calculate progress for current week display
+            const previousWeekSets = stats.weeks.length > 1 ? (stats.muscleGroups[muscle][stats.weeks[1].weekKey] || 0) : 0;
+            const progress = sets - previousWeekSets;
+            
+            let progressText = '';
+            let progressClass = 'current-week-cell';
+            
+            if (progress > 0) {
+              progressText = ` (+${progress} from last week)`;
+              progressClass += ' progress-positive-inline';
+            } else if (progress < 0) {
+              progressText = ` (${progress} from last week)`;
+              progressClass += ' progress-negative-inline';
+            } else if (previousWeekSets > 0) {
+              progressText = ` (same as last week)`;
+              progressClass += ' progress-neutral-inline';
+            }
+            
+            html += `<td class="${progressClass}">
+              <div class="current-week-main">${sets}</div>
+              <div class="progress-detail">${progressText}</div>
+            </td>`;
+          } else {
+            html += `<td class="set-count">${sets}</td>`;
+          }
+        });
+        
+        html += `</tr>`;
+      });
+      
+      html += `</tbody></table></div>`;
+      
+      contentDiv.innerHTML = html;
+    }
+
+    // ===== FORM SUBMISSION =====
     document.getElementById('workoutForm').onsubmit = function(e) {
       e.preventDefault();
       
@@ -550,6 +1667,9 @@
           clearTimeout(timeoutId);
           console.log('Workout submission successful:', result);
           
+          // Clear data cache since new workout data is available
+          clearDataCache();
+          
           // Show success state briefly
           submitButton.innerHTML = '✅ Workout Saved!';
           submitButton.style.backgroundColor = '#28a745';
@@ -588,6 +1708,7 @@
         .addWorkout({exercises});
     };
 
+    // Initialize the app
     fetchExerciseList();
   </script>
 </body>
