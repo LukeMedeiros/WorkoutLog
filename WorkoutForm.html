@@ -1368,58 +1368,80 @@
             console.log(`Looking for exercise: "${exerciseName}" in muscle group: "${exercise.muscle}"`);
             console.log(`Full name to match: "${fullExerciseName}"`);
             
-            // Check if the exercise exists in the dropdown
+            // Get exercise options and normalize them for comparison
             const exerciseOptions = Array.from(exerciseSelect.options).map(opt => opt.value);
             console.log('Available exercise options:', exerciseOptions);
+            
+            // Create normalized versions for case-insensitive comparison
+            const normalizedFullName = fullExerciseName.toLowerCase().trim();
+            const normalizedOptions = exerciseOptions.map(opt => ({
+              original: opt,
+              normalized: opt.toLowerCase().trim()
+            }));
+            
+            console.log('Normalized full name:', normalizedFullName);
+            console.log('Normalized options:', normalizedOptions.map(opt => opt.normalized));
             
             // Make sure the select is enabled
             exerciseSelect.disabled = false;
             
-            // Try exact match first
-            if (exerciseOptions.includes(fullExerciseName)) {
-              exerciseSelect.value = fullExerciseName;
-              console.log('Exact match found - Exercise value set to:', exerciseSelect.value);
+            // Try exact match first (case-insensitive)
+            const exactMatch = normalizedOptions.find(opt => opt.normalized === normalizedFullName);
+            
+            if (exactMatch) {
+              exerciseSelect.value = exactMatch.original;
+              console.log('Exact match found (case-insensitive) - Exercise value set to:', exerciseSelect.value);
             } else {
-              console.log(`Exact match "${fullExerciseName}" not found, trying partial matches...`);
+              console.log(`Exact match "${fullExerciseName}" not found, trying precise exercise name matches...`);
               
-              // Try to find a match by exercise name only (case-insensitive)
-              const partialMatch = exerciseOptions.find(opt => {
-                if (!opt || opt === "") return false;
-                const optionExerciseName = opt.split(' - ')[1]; // Get exercise part after " - "
+              // Try to find an EXACT match by exercise name only (case-insensitive)
+              const normalizedExerciseName = exerciseName.toLowerCase().trim();
+              
+              const exactExerciseMatch = normalizedOptions.find(opt => {
+                if (!opt.original || opt.original === "") return false;
+                const optionExerciseName = opt.original.split(' - ')[1]; // Get exercise part after " - "
                 if (!optionExerciseName) return false;
                 
-                // Try exact match (case-insensitive)
-                if (optionExerciseName.toLowerCase() === exerciseName.toLowerCase()) {
-                  return true;
-                }
-                
-                // Try partial match (case-insensitive)
-                if (optionExerciseName.toLowerCase().includes(exerciseName.toLowerCase()) ||
-                    exerciseName.toLowerCase().includes(optionExerciseName.toLowerCase())) {
-                  return true;
-                }
-                
-                return false;
+                // EXACT match only (case-insensitive, normalized)
+                return optionExerciseName.toLowerCase().trim() === normalizedExerciseName;
               });
               
-              if (partialMatch) {
-                console.log(`Partial match found: "${partialMatch}"`);
-                exerciseSelect.value = partialMatch;
+              if (exactExerciseMatch) {
+                console.log(`Exact exercise name match found (case-insensitive): "${exactExerciseMatch.original}"`);
+                exerciseSelect.value = exactExerciseMatch.original;
               } else {
-                console.error(`No match found for exercise: "${exerciseName}"`);
+                console.log(`No exact match found for "${exerciseName}"`);
                 console.log('Available exercise names (without type):', 
                   exerciseOptions.filter(opt => opt !== "").map(opt => opt.split(' - ')[1]));
                 
-                // As a last resort, try the first option that contains the exercise name
-                const fuzzyMatch = exerciseOptions.find(opt => 
-                  opt && opt !== "" && opt.toLowerCase().includes(exerciseName.toLowerCase())
-                );
+                // Only try partial matching if no exact match exists
+                // This is more conservative - only matches if the exercise name is contained
+                // but prioritizes shorter matches (more specific)
+                const partialMatches = normalizedOptions.filter(opt => {
+                  if (!opt.original || opt.original === "") return false;
+                  const optionExerciseName = opt.original.split(' - ')[1];
+                  if (!optionExerciseName) return false;
+                  
+                  const normalizedOptionName = optionExerciseName.toLowerCase().trim();
+                  
+                  // Check if the stored exercise name is contained in the option
+                  // This handles cases where the stored name might be shorter
+                  return normalizedOptionName.includes(normalizedExerciseName);
+                }).sort((a, b) => {
+                  // Sort by length - prefer shorter (more exact) matches
+                  const aName = a.original.split(' - ')[1];
+                  const bName = b.original.split(' - ')[1];
+                  return aName.length - bName.length;
+                });
                 
-                if (fuzzyMatch) {
-                  console.log(`Fuzzy match found: "${fuzzyMatch}"`);
-                  exerciseSelect.value = fuzzyMatch;
+                if (partialMatches.length > 0) {
+                  const bestMatch = partialMatches[0]; // Take the shortest match
+                  console.log(`Using best partial match (case-insensitive): "${bestMatch.original}" (from ${partialMatches.length} options)`);
+                  console.log('All partial matches:', partialMatches.map(m => m.original));
+                  exerciseSelect.value = bestMatch.original;
                 } else {
-                  console.error('No match found at all - leaving exercise unselected');
+                  console.error(`No suitable match found for exercise: "${exerciseName}"`);
+                  console.log('This exercise may not exist in your current exercise list.');
                 }
               }
             }
