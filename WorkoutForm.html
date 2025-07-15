@@ -305,6 +305,22 @@
       cursor: grabbing;
     }
     
+    /* Prevent text selection and improve mobile drag */
+    .exercise-header.draggable {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Disable pull-to-refresh during drag */
+    body.dragging {
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: auto;
+    }
+    
     .exercise-title {
       font-weight: 700;
       font-size: 18px;
@@ -1004,6 +1020,7 @@
     let draggedElement = null;
     let dragStartY = 0;
     let isDragging = false;
+    let dragTimeout = null; // Track the timeout for cancellation
 
     function setupDragAndDrop(block) {
       const header = block.querySelector('.exercise-header');
@@ -1094,19 +1111,37 @@
       draggedElement = this.closest('.exercise-block');
       isDragging = false;
       
-      // Add a small delay to distinguish between tap and drag
-      setTimeout(() => {
+      // Don't prevent default here - let normal tap behavior work
+      // Only prevent default once we confirm it's a drag gesture
+      
+      // Clear any existing timeout
+      if (dragTimeout) {
+        clearTimeout(dragTimeout);
+      }
+      
+      // Add a longer delay to distinguish between tap and drag
+      dragTimeout = setTimeout(() => {
         if (draggedElement && !isDragging) {
           draggedElement.classList.add('dragging');
           isDragging = true;
+          
+          // Disable body scroll during drag
+          document.body.classList.add('dragging');
+          document.body.style.overflow = 'hidden';
+          document.body.style.position = 'fixed';
+          document.body.style.width = '100%';
         }
-      }, 150);
+        dragTimeout = null;
+      }, 500); // 500ms long press to start drag
     }
 
     function handleTouchMove(e) {
       if (!draggedElement || !isDragging) return;
       
+      // Prevent all default behaviors (scroll, pull-to-refresh, etc.)
       e.preventDefault();
+      e.stopPropagation();
+      
       const touch = e.touches[0];
       const currentY = touch.clientY;
       
@@ -1129,11 +1164,25 @@
     }
 
     function handleTouchEnd(e) {
+      // Cancel drag timeout if user lifts finger early (indicates tap, not drag)
+      if (dragTimeout) {
+        clearTimeout(dragTimeout);
+        dragTimeout = null;
+      }
+      
+      // Re-enable body scroll
+      document.body.classList.remove('dragging');
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      
       if (!draggedElement || !isDragging) {
         draggedElement = null;
         isDragging = false;
         return;
       }
+      
+      e.preventDefault();
       
       const touch = e.changedTouches[0];
       const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
