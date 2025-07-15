@@ -386,15 +386,19 @@ function addWorkout(workout) {
             rirs: []
           };
         }
-        weightGroups[weight].reps.push(set.reps);
-        weightGroups[weight].rirs.push(set.rir || ''); // Handle empty RIR values
+        weightGroups[weight].reps.push(Number(set.reps) || 0);
+        // Convert RIR to number, handle empty values as empty string
+        var rirValue = set.rir && set.rir !== '' ? Number(set.rir) : '';
+        weightGroups[weight].rirs.push(rirValue);
       });
       
       // Create a separate row for each weight used
       Object.keys(weightGroups).forEach(function(weight) {
         var groupData = weightGroups[weight];
         var repsString = groupData.reps.join(',');
-        var rirsString = groupData.rirs.join(',');
+        // Filter out empty RIR values and join
+        var validRirs = groupData.rirs.filter(function(rir) { return rir !== ''; });
+        var rirsString = validRirs.length > 0 ? validRirs.join(',') : '';
         
         // Prepare row data
         // Format: Date | Exercise | Muscle | Weight | Reps | RIR
@@ -404,7 +408,7 @@ function addWorkout(workout) {
           muscle,          // Muscle group
           Number(weight),  // Weight (single value for this row)
           repsString,      // Reps for this weight (comma-separated)
-          rirsString       // RIR ratings for this weight (comma-separated)
+          rirsString       // RIR ratings for this weight (comma-separated, numbers only)
         ]);
       });
     });

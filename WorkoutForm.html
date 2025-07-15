@@ -260,6 +260,20 @@
       border-radius: 16px; 
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
+    }
+    
+    .exercise-block.dragging {
+      opacity: 0.5;
+      transform: rotate(2deg);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    
+    .exercise-block.drag-over {
+      border-color: #007bff;
+      background: #f8f9ff;
+      transform: translateY(-2px);
     }
     
     .exercise-header {
@@ -272,6 +286,7 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.2s;
+      user-select: none; /* Prevent text selection during drag */
     }
     
     .exercise-header:hover {
@@ -280,6 +295,14 @@
     
     .exercise-header.collapsed {
       margin-bottom: 0;
+    }
+    
+    .exercise-header.draggable {
+      cursor: grab;
+    }
+    
+    .exercise-header.draggable:active {
+      cursor: grabbing;
     }
     
     .exercise-title {
@@ -840,11 +863,15 @@
       const block = document.createElement('div');
       block.className = 'exercise-block';
       block.id = blockId;
+      block.draggable = true;
       block.innerHTML = `
-        <div class="exercise-header" onclick="toggleExerciseBlock('${blockId}')">
-          <div>
-            <div class="exercise-title">New Exercise</div>
-            <div class="exercise-summary">Click to configure exercise</div>
+        <div class="exercise-header draggable" onclick="toggleExerciseBlock('${blockId}')">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="color: #6c757d; font-size: 14px; cursor: grab;">⋮⋮</span>
+            <div>
+              <div class="exercise-title">New Exercise</div>
+              <div class="exercise-summary">Click to configure exercise</div>
+            </div>
           </div>
           <span class="exercise-collapse-icon">▼</span>
         </div>
@@ -872,10 +899,19 @@
         </div>
       `;
       exercisesDiv.appendChild(block);
+      
+      // Add drag and drop event listeners
+      setupDragAndDrop(block);
+      
       addSetRow(block.querySelector('button[onclick^="addSetRow"]'));
     }
 
     function toggleExerciseBlock(blockId) {
+      // Don't toggle if we're in the middle of a drag operation
+      if (isDragging) {
+        return;
+      }
+      
       const block = document.getElementById(blockId);
       const header = block.querySelector('.exercise-header');
       const content = block.querySelector('.exercise-content');
@@ -957,7 +993,177 @@
     }
 
     function removeExerciseBlock(btn) {
-      btn.parentElement.remove();
+      // Find the entire exercise block and remove it
+      const exerciseBlock = btn.closest('.exercise-block');
+      if (exerciseBlock) {
+        exerciseBlock.remove();
+      }
+    }
+
+    // ===== DRAG AND DROP FUNCTIONALITY =====
+    let draggedElement = null;
+    let dragStartY = 0;
+    let isDragging = false;
+
+    function setupDragAndDrop(block) {
+      const header = block.querySelector('.exercise-header');
+      
+      // Desktop drag events
+      block.addEventListener('dragstart', handleDragStart);
+      block.addEventListener('dragend', handleDragEnd);
+      block.addEventListener('dragover', handleDragOver);
+      block.addEventListener('drop', handleDrop);
+      block.addEventListener('dragenter', handleDragEnter);
+      block.addEventListener('dragleave', handleDragLeave);
+      
+      // Mobile touch events
+      header.addEventListener('touchstart', handleTouchStart, { passive: false });
+      header.addEventListener('touchmove', handleTouchMove, { passive: false });
+      header.addEventListener('touchend', handleTouchEnd, { passive: false });
+    }
+
+    function handleDragStart(e) {
+      draggedElement = this;
+      this.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/html', this.outerHTML);
+    }
+
+    function handleDragEnd(e) {
+      this.classList.remove('dragging');
+      draggedElement = null;
+      
+      // Clean up any remaining drag-over classes
+      document.querySelectorAll('.exercise-block').forEach(block => {
+        block.classList.remove('drag-over');
+      });
+    }
+
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = 'move';
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      if (this !== draggedElement) {
+        this.classList.add('drag-over');
+      }
+    }
+
+    function handleDragLeave(e) {
+      // Only remove drag-over if we're actually leaving the element
+      if (!this.contains(e.relatedTarget)) {
+        this.classList.remove('drag-over');
+      }
+    }
+
+    function handleDrop(e) {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+      
+      if (draggedElement !== this) {
+        // Get the position of the drop target
+        const dropTarget = this;
+        const container = document.getElementById('exercises');
+        const allBlocks = Array.from(container.children);
+        
+        const draggedIndex = allBlocks.indexOf(draggedElement);
+        const targetIndex = allBlocks.indexOf(dropTarget);
+        
+        if (draggedIndex < targetIndex) {
+          // Moving down: insert after the target
+          container.insertBefore(draggedElement, dropTarget.nextSibling);
+        } else {
+          // Moving up: insert before the target
+          container.insertBefore(draggedElement, dropTarget);
+        }
+      }
+      
+      this.classList.remove('drag-over');
+      return false;
+    }
+
+    // Touch event handlers for mobile
+    function handleTouchStart(e) {
+      const touch = e.touches[0];
+      dragStartY = touch.clientY;
+      draggedElement = this.closest('.exercise-block');
+      isDragging = false;
+      
+      // Add a small delay to distinguish between tap and drag
+      setTimeout(() => {
+        if (draggedElement && !isDragging) {
+          draggedElement.classList.add('dragging');
+          isDragging = true;
+        }
+      }, 150);
+    }
+
+    function handleTouchMove(e) {
+      if (!draggedElement || !isDragging) return;
+      
+      e.preventDefault();
+      const touch = e.touches[0];
+      const currentY = touch.clientY;
+      
+      // Only start visual dragging if moved significantly
+      if (Math.abs(currentY - dragStartY) > 10) {
+        // Find the element under the touch point
+        const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+        const targetBlock = elementBelow ? elementBelow.closest('.exercise-block') : null;
+        
+        // Remove drag-over from all blocks
+        document.querySelectorAll('.exercise-block').forEach(block => {
+          block.classList.remove('drag-over');
+        });
+        
+        // Add drag-over to target block
+        if (targetBlock && targetBlock !== draggedElement) {
+          targetBlock.classList.add('drag-over');
+        }
+      }
+    }
+
+    function handleTouchEnd(e) {
+      if (!draggedElement || !isDragging) {
+        draggedElement = null;
+        isDragging = false;
+        return;
+      }
+      
+      const touch = e.changedTouches[0];
+      const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+      const targetBlock = elementBelow ? elementBelow.closest('.exercise-block') : null;
+      
+      if (targetBlock && targetBlock !== draggedElement) {
+        // Perform the reorder
+        const container = document.getElementById('exercises');
+        const allBlocks = Array.from(container.children);
+        
+        const draggedIndex = allBlocks.indexOf(draggedElement);
+        const targetIndex = allBlocks.indexOf(targetBlock);
+        
+        if (draggedIndex < targetIndex) {
+          // Moving down: insert after the target
+          container.insertBefore(draggedElement, targetBlock.nextSibling);
+        } else {
+          // Moving up: insert before the target
+          container.insertBefore(draggedElement, targetBlock);
+        }
+      }
+      
+      // Clean up
+      draggedElement.classList.remove('dragging');
+      document.querySelectorAll('.exercise-block').forEach(block => {
+        block.classList.remove('drag-over');
+      });
+      
+      draggedElement = null;
+      isDragging = false;
     }
 
     // ===== SET MANAGEMENT =====
