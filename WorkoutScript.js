@@ -168,30 +168,56 @@ function getPastWeekWorkouts() {
     var today = new Date();
     var currentDay = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
     var daysToLastMonday = currentDay === 0 ? 7 : currentDay; // If Sunday, go back 7 days to last Monday
-    var lastMonday = new Date(today);
-    lastMonday.setDate(today.getDate() - daysToLastMonday - 7); // Go back to previous week's Monday
-    lastMonday.setHours(0, 0, 0, 0);
+    
+    // Calculate current week's Monday
+    var currentWeekMonday = new Date(today);
+    currentWeekMonday.setDate(today.getDate() - currentDay + (currentDay === 0 ? -6 : 1)); // If Sunday (0), go back to previous Monday
+    currentWeekMonday.setHours(0, 0, 0, 0);
+    
+    // Calculate previous week's Monday and Sunday
+    var lastMonday = new Date(currentWeekMonday);
+    lastMonday.setDate(currentWeekMonday.getDate() - 7); // Go back 7 days to previous week's Monday
     
     var lastSunday = new Date(lastMonday);
     lastSunday.setDate(lastMonday.getDate() + 6); // Add 6 days to get Sunday
     lastSunday.setHours(23, 59, 59, 999);
     
-    // Filter workouts from previous week
-    var previousWeekWorkouts = allWorkoutsArray.filter(function(workout) {
-      return workout.actualDate >= lastMonday && workout.actualDate <= lastSunday;
+    // Categorize workouts into three groups: previous week, older than previous week, and current week
+    var previousWeekWorkouts = [];
+    var olderWorkouts = [];
+    var currentWeekWorkouts = []; // We won't use these
+    
+    // Since allWorkoutsArray is already sorted by date (most recent first),
+    // we can efficiently categorize workouts
+    allWorkoutsArray.forEach(function(workout) {
+      if (workout.actualDate >= lastMonday && workout.actualDate <= lastSunday) {
+        // Workout is from previous week
+        previousWeekWorkouts.push(workout);
+      } else if (workout.actualDate < lastMonday) {
+        // Workout is older than previous week
+        olderWorkouts.push(workout);
+      }
+      // Workouts from current week are ignored for this purpose
     });
     
-    var finalWorkouts = [];
+    Logger.log('Found ' + previousWeekWorkouts.length + ' workouts from previous week');
+    Logger.log('Found ' + olderWorkouts.length + ' workouts from earlier weeks');
     
-    if (previousWeekWorkouts.length >= 5) {
-      // Use previous week workouts if we have at least 5
-      finalWorkouts = previousWeekWorkouts.slice(0, 5);
-      Logger.log('Found ' + previousWeekWorkouts.length + ' workouts from previous week, using first 5');
-    } else {
-      // If not enough from previous week, get the 5 most recent workouts
-      finalWorkouts = allWorkoutsArray.slice(0, 5);
-      Logger.log('Only found ' + previousWeekWorkouts.length + ' workouts from previous week, using 5 most recent workouts');
+    // Start with previous week workouts
+    var finalWorkouts = previousWeekWorkouts;
+    
+    // If we don't have 5 workouts yet, add older workouts to reach 5
+    if (finalWorkouts.length < 5 && olderWorkouts.length > 0) {
+      // Calculate how many more workouts we need
+      var neededWorkouts = 5 - finalWorkouts.length;
+      // Add the needed number of older workouts (which are already sorted by date)
+      finalWorkouts = finalWorkouts.concat(olderWorkouts.slice(0, neededWorkouts));
+      Logger.log('Added ' + Math.min(neededWorkouts, olderWorkouts.length) + ' older workouts to reach desired count');
     }
+    
+    // Limit to 5 workouts maximum (should already be 5 or fewer)
+    finalWorkouts = finalWorkouts.slice(0, 5);
+    Logger.log('Returning ' + finalWorkouts.length + ' total workouts');
     
     // Format the workout names with date + muscle groups
     finalWorkouts.forEach(function(workout) {
